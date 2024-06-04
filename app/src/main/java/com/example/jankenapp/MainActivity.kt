@@ -23,14 +23,32 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
-                    activityMainBinding.tvResult.text = uiState.result
-                    activityMainBinding.tvComputerHand.text = uiState.computerHand
-                    activityMainBinding.tvMyHand.text = uiState.myHand
+                    activityMainBinding.tvResult.text = toStringResult(uiState.result)
+                    activityMainBinding.tvComputerHand.text = toStringHand(uiState.computerHand)
+                    activityMainBinding.tvMyHand.text = toStringHand(uiState.myHand)
                 }
             }
         }
-        activityMainBinding.btRock.setOnClickListener{viewModel.didTapRock()}
-        activityMainBinding.btScissors.setOnClickListener{viewModel.didTapScissors()}
-        activityMainBinding.btPaper.setOnClickListener{viewModel.didTapPaper()}
+        activityMainBinding.btRock.setOnClickListener { viewModel.didTapRock() }
+        activityMainBinding.btScissors.setOnClickListener { viewModel.didTapScissors() }
+        activityMainBinding.btPaper.setOnClickListener { viewModel.didTapPaper() }
+    }
+
+    private fun toStringResult(result: JankenResult?): String {
+        return when (result) {
+            JankenResult.WIN -> getString(R.string.your_win)
+            JankenResult.LOSS -> getString(R.string.your_losing)
+            JankenResult.DRAW -> getString(R.string.draw)
+            else -> ""
+        }
+    }
+
+    private fun toStringHand(hand: JankenHand?): String {
+        return when (hand) {
+            JankenHand.ROCK -> getString(R.string.rock)
+            JankenHand.SCISSORS -> getString(R.string.scissors)
+            JankenHand.PAPER -> getString(R.string.paper)
+            else -> ""
+        }
     }
 }

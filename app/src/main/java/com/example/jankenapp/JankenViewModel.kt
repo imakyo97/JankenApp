@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 data class JankenUiState(
-    val result: String? = null,
-    val computerHand: String? = null,
-    val myHand: String? = null,
+    val result: JankenResult? = null,
+    val computerHand: JankenHand? = null,
+    val myHand: JankenHand? = null,
 )
 
 class JankenViewModel : ViewModel() {
@@ -23,9 +23,9 @@ class JankenViewModel : ViewModel() {
         val result = jankenManager.checkResult(myHand = myHand, computerHand = computerHand)
         _uiState.update { uiState ->
             uiState.copy(
-                result = result.toString(),
-                computerHand = computerHand.toString(),
-                myHand = myHand.toString(),
+                result = result,
+                computerHand = computerHand,
+                myHand = myHand,
             )
         }
     }
