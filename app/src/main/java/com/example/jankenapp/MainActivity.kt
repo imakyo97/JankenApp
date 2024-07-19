@@ -23,9 +23,9 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
-                    activityMainBinding.tvResult.text = uiState.result?.toText(this@MainActivity)
-                    activityMainBinding.tvComputerHand.text = uiState.computerHand?.toText(this@MainActivity)
-                    activityMainBinding.tvMyHand.text = uiState.myHand?.toText(this@MainActivity)
+                    activityMainBinding.tvResult.text = uiState.result?.let { getString(it.resId) }
+                    activityMainBinding.tvComputerHand.text = uiState.computerHand?.let { getString(it.resId) }
+                    activityMainBinding.tvMyHand.text = uiState.myHand?.let { getString(it.resId) }
                 }
             }
         }
